@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="workshop-api" />
+        <module name="iprwc-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="workshop-api" target="1.8" />
+      <module name="iprwc-api" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

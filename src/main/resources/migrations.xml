@@ -1,0 +1,338 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="1" author="Joey">
+        <createTable catalogName="albert_api" schemaName="public" tableName="users">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+        <createIndex catalogName="albert_api" indexName="users_username_uindex" schemaName="public" tableName="users" unique="true">
+            <column name="username"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="2" author="Joey">
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="roles_pkey" />
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_roles">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="user_roles_pkey" />
+            </column>
+            <column name="fk_user" type="INTEGER(11)">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_user" references="users(id)"/>
+            </column>
+            <column name="fk_role" type="INTEGER(11)">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_role" references="roles(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Joey">
+        <!-- Create an admin user -->
+        <insert tableName="users">
+            <column name="username" value="admin" />
+            <column name="password" value="admin" />
+            <column name="email" value="admin@example.com" />
+        </insert>
+
+        <!-- Create the default roles -->
+        <insert tableName="roles">
+            <column name="name">User</column>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="name">Admin</column>
+        </insert>
+
+        <!-- Give the admin user all the roles -->
+        <insert tableName="user_roles">
+            <column name="fk_user">1</column>
+            <column name="fk_role">1</column>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="fk_user">1</column>
+            <column name="fk_role">2</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Joey">
+        <update tableName="users">
+            <column
+                    name="password"
+                    type="VARCHAR(255)"
+                    value="$2a$10$CGdrZyXNUjT4FPFq8QOC2esSs6T27zw.zXIz0zJz9H9GVpnbotNDm"
+            />
+            <where>username = 'admin'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="5" author="Sander">
+        <!--projects table -->
+        <createTable tableName="projects">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="projects_pkey" />
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="fk_contact" type="integer" />
+        </createTable>
+
+        <!--addresses table -->
+        <createTable tableName="addresses">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="addresses_pkey" />
+            </column>
+            <column name="zipcode" type="VARCHAR(10)"/>
+            <column name="street" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house_number" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="province" type="VARCHAR(100)"/>
+        </createTable>
+
+        <!--contacts table -->
+        <createTable tableName="contacts">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="contacts_pkey" />
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="website" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="fk_address" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_contacts_addresses" references="addresses(id)"/>
+            </column>
+        </createTable>
+
+        <!--contact_email table -->
+        <createTable tableName="contact_email">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="contact_email_pkey" />
+            </column>
+            <column name="contact_id" type="integer">
+                <constraints nullable="false" foreignKeyName="contact_email_contacts_fk" references="contacts(id)"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+
+        <!--contact_phone table -->
+        <createTable tableName="contact_phone">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="contact_phone_pkey" />
+            </column>
+            <column name="contact_id" type="integer">
+                <constraints nullable="false" foreignKeyName="contact_email_contacts_fk" references="contacts(id)"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="Joey">
+        <addForeignKeyConstraint
+                baseTableName="projects"
+                baseColumnNames="fk_contact"
+                constraintName="fk_project_contact"
+                referencedTableName="contacts"
+                referencedColumnNames="id"
+        />
+    </changeSet>
+
+    <changeSet id="7" author="Sander">
+        <createTable tableName="btw">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="btw_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="integer">
+            </column>
+        </createTable>
+        <createTable tableName="quotations">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="quotations_pkey"/>
+            </column>
+            <column name="fk_project" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_project" references="projects(id)"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="quotations_line">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="quotations_line_pkey"/>
+            </column>
+            <column name="fk_quotation" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_quotation" references="quotations(id)"/>
+            </column>
+            <column name="fk_btw" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_btw" references="btw(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12" author="Maarten">
+        <createTable tableName="expense_category">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="expense_category_pkey"/>
+            </column>
+            <column name="name" type="varchar(50)">
+            </column>
+
+        </createTable>
+        <createTable tableName="expenses">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="expenses_pkey"/>
+            </column>
+            <column name="fk_project" type="integer">
+                <constraints nullable="true" foreignKeyName="fk_expenses_project" references="projects(id)"/>
+            </column>
+            <column name="fk_btw" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_expensens_btw" references="btw(id)"/>
+            </column>
+            <column name="net_cost" type="numeric(11,2)">
+
+            </column>
+            <column name="date_created" type="date">
+
+            </column>
+            <column name="description" type="varchar(255)">
+
+            </column>
+            <column name="fk_expense_category" type="integer">
+                <constraints nullable="true" foreignKeyName="fk_expense_category" references="expense_category(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="Sander">
+        <addColumn tableName="quotations_line">
+            <column name="net_price" type="numeric(11,2)"/>
+        </addColumn>
+        <addColumn tableName="quotations_line">
+            <column name="name" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="10" author="Sander">
+        <dropColumn tableName="quotations" columnName="name"/>
+        <addColumn tableName="quotations">
+            <column name="name" type="numeric(11,2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="11" author="Sander">
+        <dropColumn tableName="btw" columnName="amount"/>
+        <addColumn tableName="btw">
+            <column name="amount" type="numeric(11,2)"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="12" author="Joey">
+        <addColumn tableName="projects">
+            <column name="fk_user" type="INTEGER(11)">
+                <constraints nullable="false" foreignKeyName="fk_project_users" references="users(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="13" author="Sander">
+        <dropColumn tableName="contact_phone">
+            <column name="contact_id"/>
+        </dropColumn>
+        <addColumn tableName="contact_phone">
+            <column name="contact_id" type="integer">
+                <constraints nullable="true" foreignKeyName="contact_phone_contacts_fk" references="contacts(id)"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="contact_email">
+            <column name="contact_id"/>
+        </dropColumn>
+        <addColumn tableName="contact_email">
+            <column name="contact_id" type="integer">
+                <constraints nullable="true" foreignKeyName="contact_email_contacts_fk" references="contacts(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="14" author="Alexander">
+        <createTable tableName="invoices">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="invoices_pkey" />
+            </column>
+            <column name="paid" type="BOOLEAN" />
+            <column name="number" type="VARCHAR(50)"/>
+            <column name="date_delivery" type="DATETIME"/>
+            <column name="date_billing" type="DATETIME" />
+            <column name="date_paid" type="DATETIME" />
+            <column name="fk_project" type="integer">
+                <constraints nullable="true" foreignKeyName="fk_invoices_projects" references="projects(id)"/>
+            </column>
+        </createTable>
+        <!-- Create table invoice_lines   -->
+        <createTable tableName="invoice_lines">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="invoice_line_pkey" />
+            </column>
+            <column name="fk_invoice" type="integer(11)">
+                <constraints nullable="true" foreignKeyName="fk_invoicelines_invoices" references="invoices(id)" />
+            </column>
+            <column name="fk_btw" type="integer(11)">
+                <constraints nullable="true" foreignKeyName="fk_invoicelines_btw" references="btw(id)"/>
+            </column>
+            <column name="net_price" type="numeric(11,2)"/>
+            <column name="name" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="15" author="Maarten">
+        <dropColumn tableName="quotations">
+            <column name="name"/>
+        </dropColumn>
+        <addColumn tableName="quotations">
+            <column name="name" type="varchar(50)">
+            </column>
+        </addColumn>
+        <addColumn tableName="quotations">
+            <column name="description" type="varchar(255)">
+            </column>
+        </addColumn>
+        <addColumn tableName="quotations">
+            <column name="date_created" type="datetime">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="16" author="Maarten">
+        <insert tableName="users">
+            <column name="username" value="loekweijts" />
+            <column name="password" value="weijts019" />
+            <column name="email" value="info@loekweijts.nl" />
+        </insert>
+        <insert tableName="btw">
+            <column name="name" value="Goederen" />
+            <column name="amount" value="21" />
+        </insert>
+        <insert tableName="btw">
+            <column name="name" value="Verlaagd" />
+            <column name="amount" value="9" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -19,6 +19,7 @@ import nl.schaapkabap.auth.BasicAuthorizer;
 import nl.schaapkabap.bundles.ConfiguredHibernateBundle;
 import nl.schaapkabap.bundles.ConfiguredMigrationBundle;
 import nl.schaapkabap.configuration.ApiConfiguration;
+import nl.schaapkabap.filters.CORSFilter;
 import nl.schaapkabap.models.Product;
 import nl.schaapkabap.models.ProductCategory;
 import nl.schaapkabap.models.Role;
@@ -52,6 +53,9 @@ public class ApiApplication extends Application<ApiConfiguration> {
         new ApiApplication().run(args);
     }
 
+    private void setupFilters(Environment environment) {
+        environment.jersey().register(new CORSFilter());
+    }
     @Override
     public void initialize(Bootstrap<ApiConfiguration> bootstrap) {
         super.initialize(bootstrap);
@@ -74,6 +78,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
                     Environment environment) throws Exception {
 
         // Do general setup
+        this.setupFilters(environment);
         this.setupDaos(environment);
         this.setupResources(environment);
         this.setupAuthentication(environment);

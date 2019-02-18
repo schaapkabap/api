@@ -22,6 +22,7 @@ import java.util.Collection;
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductResource  implements CRUD<Product> {
+
     private final ProductDAO dao;
 
     @Inject
@@ -33,6 +34,7 @@ public class ProductResource  implements CRUD<Product> {
     @JsonView(View.Public.class)
     @RolesAllowed("user")
     @UnitOfWork
+    @Override
     public Collection<Product> retrieveAll() {
         return dao.getAll();
     }
@@ -72,7 +74,6 @@ public class ProductResource  implements CRUD<Product> {
 
     @PUT
     @RolesAllowed("user")
-    @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_XML)
     @UnitOfWork

@@ -20,11 +20,14 @@ import nl.schaapkabap.bundles.ConfiguredHibernateBundle;
 import nl.schaapkabap.bundles.ConfiguredMigrationBundle;
 import nl.schaapkabap.configuration.ApiConfiguration;
 import nl.schaapkabap.models.Product;
+import nl.schaapkabap.models.ProductCategory;
 import nl.schaapkabap.models.Role;
 import nl.schaapkabap.models.User;
+import nl.schaapkabap.persistence.ProductCategoryDAO;
 import nl.schaapkabap.persistence.ProductDAO;
 import nl.schaapkabap.persistence.UserDAO;
 import nl.schaapkabap.resource.AuthResource;
+import nl.schaapkabap.resource.ProductCategoryResource;
 import nl.schaapkabap.resource.ProductResource;
 import nl.schaapkabap.resource.UserResource;
 import nl.schaapkabap.service.UserService;
@@ -37,11 +40,13 @@ public class ApiApplication extends Application<ApiConfiguration> {
     private final ConfiguredHibernateBundle userHibernateBundle = new ConfiguredHibernateBundle(
             User.class,
             Role.class,
-            Product.class
+            Product.class,
+            ProductCategory.class
     );
 
     private UserDAO userDAO;
     private ProductDAO productDAO;
+    private ProductCategoryDAO productCategoryDAO;
 
     public static void main(String[] args) throws Exception {
         new ApiApplication().run(args);
@@ -77,6 +82,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
     private void setupDaos(Environment environment) {
         this.userDAO = new UserDAO(this.userHibernateBundle.getSessionFactory());
         this.productDAO = new ProductDAO(this.userHibernateBundle.getSessionFactory());
+        this.productCategoryDAO = new ProductCategoryDAO(this.userHibernateBundle.getSessionFactory());
     }
 
     private void setupAuthentication(Environment environment) {
@@ -105,6 +111,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(new AuthResource(this.userDAO));
         environment.jersey().register(new UserResource(new UserService(this.userDAO)));
         environment.jersey().register(new ProductResource(this.productDAO));
+        environment.jersey().register(new ProductCategoryResource(this.productCategoryDAO));
 
     }
     

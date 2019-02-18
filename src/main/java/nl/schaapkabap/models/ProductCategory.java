@@ -1,12 +1,13 @@
 package nl.schaapkabap.models;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.schaapkabap.views.View;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "Category")
-@Table(name = "catergorys")
+@Table(name = "product_category")
 @NamedQueries({
         @NamedQuery(
                 name = "Category.findById",
@@ -14,9 +15,13 @@ import javax.persistence.Table;
         ),
         @NamedQuery(name = "Category.findAll", query = "SELECT p FROM Category p")
 })
-public class Category {
+public class ProductCategory {
 
-
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JsonView(View.Public.class)
     private int id;
 
     private String name;

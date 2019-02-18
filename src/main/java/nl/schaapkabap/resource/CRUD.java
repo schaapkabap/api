@@ -1,6 +1,7 @@
 package nl.schaapkabap.resource;
 
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 public interface CRUD<T> {
     /**
@@ -17,6 +18,7 @@ public interface CRUD<T> {
      */
     T read(int id);
 
+    Collection<T> retrieveAll();
 
     Response update(T obj);
 

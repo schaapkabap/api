@@ -27,14 +27,17 @@ public class BasicAuthenticator implements Authenticator<BasicCredentials, User>
         Optional<User> user = this.dao.findUserByUsername(credentials.getUsername());
 
         // If there is no user found, give back an empty user
-        if ( ! user.isPresent()) return Optional.empty();
+        if (!user.isPresent()) return Optional.empty();
 
-
-        if (BCrypt.checkpw(credentials.getPassword(), user.get().getPassword())) {
-            return user;
-        } else {
-            return Optional.empty();
+        else {
+            if (BCrypt.checkpw(credentials.getPassword(), user.get().getPassword())) {
+                return user;
+            } else {
+                return Optional.empty();
+            }
         }
+
+
     }
 
 }

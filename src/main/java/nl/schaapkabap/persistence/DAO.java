@@ -1,17 +1,29 @@
 package nl.schaapkabap.persistence;
 
+import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.SessionFactory;
+
 import java.util.List;
 
-public interface DAO<T> {
+public abstract class DAO<T> extends AbstractDAO<T> {
 
-    List<T> getAll();
+    /**
+     * Creates a new DAO with a given session provider.
+     *
+     * @param sessionFactory a session provider
+     */
+    public DAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
 
-    T findById(int id);
+    public abstract List<T> getAll();
 
-    void add(T obj);
+    public abstract T findById(int id);
 
-    void update(T obj);
+    public abstract void add(T obj);
 
-    void delete(T obj);
+    public abstract void update(T obj);
+
+    public abstract void delete(T obj);
 
 }

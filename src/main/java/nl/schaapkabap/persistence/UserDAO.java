@@ -1,6 +1,5 @@
 package nl.schaapkabap.persistence;
 
-import io.dropwizard.hibernate.AbstractDAO;
 import nl.schaapkabap.models.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -8,7 +7,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO extends AbstractDAO<User> implements DAO<User> {
+public class UserDAO extends DAO<User> {
 
     public UserDAO(SessionFactory sessionFactory) {
         super(sessionFactory);

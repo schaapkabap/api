@@ -20,6 +20,6 @@ before_install:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: shh -t travis@schaapkabap.nl "bash /home/travis/api-pr/run.sh"
+    script: ssh -t travis@schaapkabap.nl "bash /home/travis/api-pr/run.sh"
     on:
       branch: master

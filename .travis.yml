@@ -8,3 +8,10 @@ before_install:
 - echo -e "Host schaapkabap.nl\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key travis@schaapkabap.nl pwd
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: shh -t travis@schaapkabap.nl 'bash /home/travis/api-pr/run.sh"
+    on:
+      branch: master

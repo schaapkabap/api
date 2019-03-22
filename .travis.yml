@@ -3,8 +3,7 @@ before_install:
   -in deploykey.enc -out ./deploykey -d
 - ssh-add ./deploykey
 - eval "$(ssh-agent -s)"
-- chmod 600 ./deploy_key
+- chmod 600 ./deploykey
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh-add ./deploy_key
-# test ssh connection for: https://github.com/dwyl/learn-travis/issues/42
+- ssh-add ./deploykey
 - ssh -i ./deploykey travis@schaapkabap.nl pwd

@@ -1,5 +1,10 @@
+language: java
+
+sudo: false
 os:
   - linux
+
+install: true
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_a384211934a8_key -iv $encrypted_a384211934a8_iv

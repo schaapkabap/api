@@ -5,6 +5,6 @@ before_install:
 - ssh-add ./deploy_key
 - eval "$(ssh-agent -s)"
 - chmod 600 ./deploy_key
-- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host schaapkabap.nl\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key travis@schaapkabap.nl pwd

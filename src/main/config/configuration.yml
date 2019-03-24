@@ -36,7 +36,7 @@ server:
       port: 8080
     - type: https
       port: 8443
-      keyStorePath: /opt/lets/myKeyStore.jks
+      keyStorePath: /opt/lets/keystore.jks
       keyStorePassword: "123buckleMyShoe"
       validateCerts: false
       validatePeers: false

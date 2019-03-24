@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/iprwc-api.iml" filepath="$PROJECT_DIR$/iprwc-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/iprwc-api (1).iml" filepath="$PROJECT_DIR$/iprwc-api (1).iml" />
-      <module fileurl="file://$PROJECT_DIR$/iprwc-api (2).iml" filepath="$PROJECT_DIR$/iprwc-api (2).iml" />
     </modules>
   </component>
 </project>

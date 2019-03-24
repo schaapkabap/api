@@ -31,8 +31,6 @@ public class ProductResource  implements CRUD<Product> {
     }
 
     @GET
-    @JsonView(View.Public.class)
-    @RolesAllowed("user")
     @UnitOfWork
     @Override
     public Collection<Product> retrieveAll() {
@@ -40,7 +38,6 @@ public class ProductResource  implements CRUD<Product> {
     }
 
     @GET
-    @RolesAllowed("user")
     @Path("/{id}")
     @JsonView(View.Public.class)
     @UnitOfWork

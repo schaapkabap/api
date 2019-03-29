@@ -1,5 +1,6 @@
 package nl.schaapkabap.service;
 
+import nl.schaapkabap.models.Role;
 import nl.schaapkabap.models.User;
 import nl.schaapkabap.persistence.DAO;
 
@@ -13,5 +14,4 @@ public class UserService extends Service<User> {
     boolean hasAccess(User user, User obj) {
         return user.equals(obj);
     }
-
 }

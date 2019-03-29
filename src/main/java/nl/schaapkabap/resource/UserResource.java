@@ -63,4 +63,12 @@ public class UserResource {
         this.service.update(auth, user);
         return Response.ok().build();
     }
+    @POST
+    @RolesAllowed("user")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @UnitOfWork
+    public Response create(@Auth User auth, User user) {
+        this.service.add(user);
+        return Response.ok().build();
+    }
 }

@@ -204,4 +204,12 @@
 
 
     </changeSet>
+    <changeSet id="25" author="Alexander">
+    <!-- Create an test user -->
+    <insert tableName="users">
+        <column name="username" value="test"/>
+        <column name="password" value="$2a$10$rwaAMad9IiwQmpggnHcUZec66gjcApJG/L3J8GkhQno18POUAwW9u"/>
+        <column name="email" value="test@test.com"/>
+    </insert>
+    </changeSet>
 </databaseChangeLog>

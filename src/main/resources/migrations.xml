@@ -136,7 +136,7 @@
             <column name="name" value="Wit bruine kat"/>
             <column name="description" value="Meest chagerijnige kat ter wereld"/>
             <column name="price" value="120"/>
-            <column name="image" value="https://pbs.twimg.com/profile_images/3088062580/5f91b5441cee82b1b98252ad3b6e94c4_400x400.jpeg" />
+            <column name="image" value="https://i.imgur.com/xgvXTn4.jpg" />
         </insert>
     </changeSet>
     <changeSet id="24" author="Alexander">
@@ -145,7 +145,7 @@
             <column name="name" value="Schattige kat"/>
             <column name="description" value="Meest schattigste  kat ter wereld"/>
             <column name="price" value="220"/>
-            <column name="image" value="https://i.imgur.com/j45Monu.jpg" />
+            <column name="image" value="https://i.imgur.com/jsdLkzZ.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Maartens kat"/>
@@ -160,46 +160,46 @@
             <column name="image" value="https://i.imgur.com/QP9JJCk.jpg" />
         </insert>
         <insert tableName="products">
-            <column name="name" value="Opkijkende kat"/>
-            <column name="description" value="Katten die met een raar naar je kijken"/>
+            <column name="name" value="Boze kat"/>
+            <column name="description" value="Katten die boos naar je kijken"/>
             <column name="price" value="120"/>
-            <column name="image" value="https://i.imgur.com/nC2LGEE.jpg" />
+            <column name="image" value="https://i.imgur.com/56s7DLO.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Kleine katten"/>
             <column name="description" value="Katten die heel erg jong zijn"/>
             <column name="price" value="120"/>
-            <column name="image" value="https://i.imgur.com/j45Monu.jpg" />
+            <column name="image" value="https://i.imgur.com/0xqyQhL.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Kat in bundel"/>
             <column name="description" value="Heel veel katten in een bundel kopen"/>
             <column name="price" value="120"/>
-            <column name="image" value="https://i.imgur.com/4oT0rQV.jpg" />
+            <column name="image" value="https://i.imgur.com/7eG1U1K.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Lezende katten"/>
             <column name="description" value="Kat die alleen maar een boek leest."/>
             <column name="price" value="320"/>
-            <column name="image" value="https://i.imgur.com/f9ZHYLi.jpg" />
+            <column name="image" value="https://i.imgur.com/x1K33F0.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Kat met snor"/>
             <column name="description" value="Katten die een snor hebben"/>
             <column name="price" value="60"/>
-            <column name="image" value="https://i.imgur.com/8YZcqzV.jpg" />
+            <column name="image" value="https://i.imgur.com/mUf1f4n.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Kat met flaporen"/>
             <column name="description" value="Katten met een flaporen"/>
             <column name="price" value="120"/>
-            <column name="image" value="https://i.imgur.com/TpMy9Lu.png" />
+            <column name="image" value="https://i.imgur.com/76e5spu.jpg" />
         </insert>
         <insert tableName="products">
             <column name="name" value="Dikke kat"/>
             <column name="description" value="Katten die we te lang in het assortiment hebben"/>
             <column name="price" value="200"/>
-            <column name="image" value="https://i.imgur.com/eeQN9Nl.jpg" />
+            <column name="image" value="https://i.imgur.com/GdFTS7P.jpg" />
         </insert>
 
 

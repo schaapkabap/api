@@ -201,8 +201,6 @@
             <column name="price" value="200"/>
             <column name="image" value="https://i.imgur.com/GdFTS7P.jpg" />
         </insert>
-
-
     </changeSet>
     <changeSet id="25" author="Alexander">
     <!-- Create an test user -->
@@ -211,5 +209,13 @@
         <column name="password" value="$2a$10$rwaAMad9IiwQmpggnHcUZec66gjcApJG/L3J8GkhQno18POUAwW9u"/>
         <column name="email" value="test@test.com"/>
     </insert>
+    </changeSet>
+    <changeSet id="26" author="Alexander">
+        <insert tableName="products">
+            <column name="name" value="Joey's kat andere kat"/>
+            <column name="description" value="Joey heeft meer dan 1 kat!!🤩"/>
+            <column name="price" value="120"/>
+            <column name="image" value="https://i.imgur.com/SfDWhiC.jpg"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
